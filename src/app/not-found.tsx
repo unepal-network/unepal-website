@@ -13,10 +13,10 @@ export default function NotFound() {
           404
         </h1>
         <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 tracking-tight">
-          Oops! You've ventured off the map.
+          Oops! You&apos;ve ventured off the map.
         </h2>
         <p className="text-lg text-slate-400 mb-10 leading-relaxed max-w-md mx-auto">
-          The page you are looking for doesn't exist, has been moved, or is temporarily unavailable. Let's get you back home.
+          The page you are looking for doesn&apos;t exist, has been moved, or is temporarily unavailable. Let&apos;s get you back home.
         </p>
         <Link 
           href="/" 

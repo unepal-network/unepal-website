@@ -25,7 +25,7 @@ export default function Error({
           Something went wrong
         </h2>
         <p className="text-gray-500 mb-8 leading-relaxed">
-          We're sorry, but an unexpected error occurred. Our team has been notified. 
+          We&apos;re sorry, but an unexpected error occurred.
           Please try refreshing or head back to the homepage.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

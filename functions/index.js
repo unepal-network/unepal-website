@@ -50,7 +50,7 @@ exports.contact = onRequest({ cors: true }, async (request, response) => {
   const cleanMessage = message.slice(0, 5000);
 
   try {
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: contactSender,
       to: [contactRecipient],
       replyTo: email,
@@ -64,6 +64,7 @@ exports.contact = onRequest({ cors: true }, async (request, response) => {
       ].join("\n"),
     });
 
+    if (result.error) throw new Error("Email provider rejected the message.");
     response.status(200).json({ message: "Message sent successfully." });
   } catch (error) {
     console.error("Contact function failed", error);

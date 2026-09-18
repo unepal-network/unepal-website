@@ -1,13 +1,25 @@
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import Footer from '@/components/Footer';
-import Business from '@/components/Business';
-import DownloadCTA from '@/components/DownloadCTA';
-import Contact from '@/components/Contact';
-import ProductShowcase from '@/components/ProductShowcase';
-import TrustSafety from '@/components/TrustSafety';
-import AppExperienceShowcase from '@/components/AppExperienceShowcase';
-import MobileStickyDownload from '@/components/MobileStickyDownload';
+import type { Metadata } from 'next';
+import LandingPage from '@/components/LandingPage';
+
+export const metadata: Metadata = {
+  title: 'uNepal — Your Nepali world, connected',
+  description: 'Your people, your stories, your everyday life. Discover uNepal: the social and community app for Nepalese everywhere, with Hamro TV, Bazaar and local connections.',
+  alternates: { canonical: 'https://www.unepal.com/' },
+  openGraph: {
+    type: 'website',
+    url: 'https://www.unepal.com/',
+    siteName: 'uNepal',
+    title: 'uNepal — Your Nepali world, connected',
+    description: 'Your people, your stories, your everyday life. Find your Nepalese community, wherever you are.',
+    images: [{ url: 'https://www.unepal.com/assets/site-2026/hero-community.webp', width: 1355, height: 1161, alt: 'uNepal — connecting Nepalese communities everywhere' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'uNepal — Your Nepali world, connected',
+    description: 'Your people, your stories, your everyday life. Find your Nepalese community, wherever you are.',
+    images: ['https://www.unepal.com/assets/site-2026/hero-community.webp'],
+  },
+};
 
 export default function Home() {
   const jsonLd = {
@@ -16,37 +28,10 @@ export default function Home() {
     name: 'uNepal',
     operatingSystem: 'iOS, Android',
     applicationCategory: 'SocialNetworkingApplication',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'AUD',
-    },
-    description: 'uNepal is Hamro Social Network for Nepalese everywhere - bringing posts, groups, pages, Bazaar, Hamro TV, events, business discovery, messaging, and local community updates into one app.',
-    image: 'https://www.unepal.com/assets/hero-mockup.jpg',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'AUD' },
+    url: 'https://www.unepal.com/',
+    description: 'A social and community app for Nepalese everywhere, with a home feed, Hamro TV, Bazaar, business discovery and messaging.',
+    image: 'https://www.unepal.com/assets/logo.png',
   };
-
-  return (
-    <>
-      {/* Structured Data for Google Rich Snippets */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      <Header />
-      <main className="pb-20 lg:pb-0">
-        <Hero />
-        <AppExperienceShowcase />
-        <ProductShowcase />
-        <Business />
-        <TrustSafety />
-        <DownloadCTA />
-        <Contact />
-      </main>
-
-      <MobileStickyDownload />
-
-      <Footer />
-    </>
-  );
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} /><LandingPage /></>;
 }

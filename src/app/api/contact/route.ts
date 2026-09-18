@@ -54,7 +54,7 @@ export async function POST(request: Request) {
   const cleanMessage = message.slice(0, 5000);
 
   try {
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: contactSender,
       to: [contactRecipient],
       replyTo: email,
@@ -68,6 +68,7 @@ export async function POST(request: Request) {
       ].join('\n'),
     });
 
+    if (result.error) throw new Error('Email provider rejected the message.');
     return Response.json({ message: 'Message sent successfully.' });
   } catch {
     return Response.json(

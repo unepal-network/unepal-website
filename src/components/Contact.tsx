@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import FadeIn from './FadeIn';
 
 export default function Contact() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   const isLocalhost = typeof window !== 'undefined' && ['localhost', '127.0.0.1'].includes(window.location.hostname);
   const contactEndpoint = isLocalhost
@@ -51,7 +53,6 @@ export default function Contact() {
 
       setStatus('success');
       form.reset();
-      setTimeout(() => setIsOpen(false), 1200);
     } catch {
       setStatus('error');
       setErrorMessage('We could not send your message right now. Please email hello@unepal.com directly.');
@@ -65,9 +66,26 @@ export default function Contact() {
   };
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const trigger = triggerRef.current;
+    const dialog = dialogRef.current;
+    dialog?.querySelector<HTMLInputElement>('input')?.focus();
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { setIsOpen(false); return; }
+      if (event.key !== 'Tab' || !dialog) return;
+      const items = Array.from(dialog.querySelectorAll<HTMLElement>('button:not([disabled]), input, select, textarea, a[href]'));
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+    };
+    document.addEventListener('keydown', handleKey);
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKey);
+      trigger?.focus();
     };
   }, [isOpen]);
 
@@ -89,6 +107,7 @@ export default function Contact() {
             </div>
 
             <button
+              ref={triggerRef}
               type="button"
               onClick={openContactForm}
               className="inline-flex w-full items-center justify-center gap-3 rounded-[1rem] bg-brand-primary px-7 py-4 text-base font-extrabold text-white shadow-[0_18px_36px_-24px_rgba(230,0,35,0.9)] transition-colors hover:bg-brand-blue sm:w-auto"
@@ -101,7 +120,7 @@ export default function Contact() {
       </div>
 
       {isOpen && (
-        <div className="fixed inset-0 z-[80] flex items-end justify-center bg-[#071632]/55 px-4 py-4 backdrop-blur-sm sm:items-center sm:py-8" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+        <div ref={dialogRef} className="fixed inset-0 z-[80] flex items-end justify-center bg-[#071632]/55 px-4 py-4 backdrop-blur-sm sm:items-center sm:py-8" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
           <div className="w-full max-w-2xl overflow-hidden rounded-[1.5rem] bg-white shadow-[0_28px_90px_-32px_rgba(7,22,50,0.7)]">
             <div className="flex items-start justify-between gap-4 border-b border-[#E4E6EB] px-5 py-4 sm:px-6">
               <div>
@@ -147,12 +166,12 @@ export default function Contact() {
               </div>
 
               {status === 'success' && (
-                <div className="mt-4 rounded-xl border border-brand-blue/15 bg-white px-5 py-4 text-center text-sm font-semibold text-brand-blue">
+                <div role="status" className="mt-4 rounded-xl border border-brand-blue/15 bg-white px-5 py-4 text-center text-sm font-semibold text-brand-blue">
                   Your message has been sent to hello@unepal.com.
                 </div>
               )}
               {status === 'error' && (
-                <div className="mt-4 rounded-xl border border-brand-primary/15 bg-white px-5 py-4 text-center text-sm font-semibold text-brand-primary">
+                <div role="alert" className="mt-4 rounded-xl border border-brand-primary/15 bg-white px-5 py-4 text-center text-sm font-semibold text-brand-primary">
                   {errorMessage}
                 </div>
               )}
