@@ -105,3 +105,34 @@
 }
 @media(max-width:370px) { .hero:global(#home) h1 { font-size:39px; }.heroEyebrow { font-size:10px; }.socialHero { height:445px; }.storyCard { width:245px; }.heroPost { left:10px; width:calc(100% - 15px); }.postHeader { gap:7px; }.postHeader > span { font-size:10px; }.postPhoto { height:140px; }.chatCard { width:203px; }.socialSticker { width:67px; bottom:0; }.socialSticker span { font-size:7px; }.socialFeature { padding-inline:14px; }.discoveryTitle { gap:9px; }.discoveryTitle strong { font-size:12px; }.discoveryTitle .tileIcon { width:36px; height:36px; }.videoMain { height:200px; }.videoMain strong { font-size:17px; } }
 @media(max-width:900px) { .socialSticker { display:none; }.storyRow small,.postHeader small { font-size:10px; }.chatCard { width:240px; }.chatCard strong,.chatCard > span { font-size:11px; }.artCaption { font-size:10px; } }
+
+/* Wide desktop: expand the layout, not the reading measure or social cards. */
+@media(min-width:1440px) {
+ .container,.contactSection :global(#contact > .container) { width:min(1600px,calc(100% - 160px)); }
+ .headerInner { width:min(1680px,calc(100% - 128px)); }
+ .page > main { background:radial-gradient(ellipse at 90% 15%,#e8efff 0,transparent 62%) right top / 60% 760px no-repeat,radial-gradient(ellipse at 5% 20%,#fff0f4 0,transparent 60%) left top / 60% 760px no-repeat; }
+ .hero { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(60px,5vw,100px); min-height:740px; padding-block:70px 80px; }
+ .heroCopy { max-width:620px; }
+ .heroCopy > p { max-width:470px; }
+ .socialHero { width:100%; max-width:580px; justify-self:center; }
+ .featureCopy { padding:clamp(48px,4vw,72px); }
+ .featureCopy > p,.communityCopy > p,.businessSection > div > p { max-width:55ch; }
+ .featureCopy h3 { max-width:20ch; }
+ .communityGrid,.businessSection { gap:clamp(70px,6vw,120px); }
+ .communityArtwork { height:270px; }
+ .communityValues small { max-width:50ch; }
+ .bazaarGrid { gap:24px; }
+ .bazaarCard { padding:32px; }
+ .bazaarCard p { max-width:30ch; }
+ .mediaCopy { padding:64px 72px; }
+ .mediaVisual .videoArtwork { max-width:500px; }
+ .businessVisual { height:470px; }
+ .faqSection { grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:clamp(90px,7vw,140px); }
+ .questions details p { max-width:68ch; }
+ .footerTop { gap:60px; }
+}
+@media(min-width:2200px) {
+ .hero { min-height:780px; }
+ .section { padding-block:104px; }
+ .communitySection { padding-block:96px; background:linear-gradient(110deg,#fff5f8 0,#fff 30%,#fff 70%,#f0f5ff); }
+}
