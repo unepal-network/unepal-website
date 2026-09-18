@@ -107,6 +107,30 @@
 @media(max-width:900px) { .socialSticker { display:none; }.storyRow small,.postHeader small { font-size:10px; }.chatCard { width:240px; }.chatCard strong,.chatCard > span { font-size:11px; }.artCaption { font-size:10px; } }
 
 /* Wide desktop: expand the layout, not the reading measure or social cards. */
+.storeBadges { display:flex; flex-wrap:wrap; align-items:center; gap:24px; margin-top:24px; padding-block:12px; }
+.storeBadges a { display:inline-flex; align-items:center; justify-content:center; min-height:48px; flex-shrink:0; border-radius:7px; }
+.storeBadges img { display:block; width:auto; height:48px; max-width:none; }
+.storeBadges a:hover { outline:2px solid #a4b8e8; outline-offset:5px; }
+.downloadSection .storeBadges { justify-content:center; }
+.midpointDownload { display:flex; align-items:center; justify-content:space-between; gap:32px; padding:28px 32px; margin-top:28px; border:1px solid var(--line); border-radius:20px; background:white; }
+.midpointDownload h3 { font-size:24px; letter-spacing:-.03em; }
+.midpointDownload p { margin-top:6px; }
+.midpointDownload .storeBadges { margin:0; }
+.stickyStores { display:none; }
+.page .storeCredits { margin:0; padding:0 24px 24px; background:#f5f7fc; text-align:center; font-size:11px; line-height:1.6; }
+@media(max-width:900px) {
+ .page { padding-bottom:calc(84px + env(safe-area-inset-bottom,0px)); }
+ .storeBadges { gap:20px; }
+ .storeBadges img { height:40px; }
+ .midpointDownload { flex-direction:column; align-items:flex-start; gap:12px; padding:24px; }
+ .midpointDownload h3 { font-size:23px; }
+ .stickyStores:not([hidden]) { display:flex; position:fixed; inset:auto 0 0; z-index:45; justify-content:center; padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px)); border-top:1px solid var(--line); background:#fffffff5; box-shadow:0 -6px 24px #071b4e0a; }
+ .stickyStores .compactBadges { flex-wrap:nowrap; gap:20px; margin:0; padding:0; }
+ .stickyStores .compactBadges a { min-height:48px; }
+ .page:has(details[open] nav[aria-label='Mobile navigation']) .stickyStores,
+ .page:has([role='dialog'][aria-modal='true']) .stickyStores { display:none; }
+ .page :is(a,button,summary,input,select,textarea) { scroll-margin-bottom:110px; }
+}
 @media(min-width:1440px) {
  .container,.contactSection :global(#contact > .container) { width:min(1600px,calc(100% - 160px)); }
  .headerInner { width:min(1680px,calc(100% - 128px)); }

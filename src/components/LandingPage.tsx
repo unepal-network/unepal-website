@@ -5,16 +5,14 @@ import FeatureExplorer from './FeatureExplorer';
 import MobileNavigation from './MobileNavigation';
 import BrandIcon from './BrandIcon';
 import SocialArtwork, { VideoArtwork } from './SocialArtwork';
-import { ANDROID_PLAY_STORE_URL, IOS_APP_STORE_URL } from '@/lib/storeLinks';
+import StoreBadges from './StoreBadges';
+import StickyStoreBar from './StickyStoreBar';
 import styles from './landing.module.css';
 
 function Arrow() { return <BrandIcon name="arrow" />; }
 
 function StoreLinks() {
-  return <div className={styles.stores}>
-    <a href={IOS_APP_STORE_URL} aria-label="Download uNepal on the App Store"><BrandIcon name="phone" /><span><small>Download for</small><strong>iPhone</strong></span></a>
-    <a href={ANDROID_PLAY_STORE_URL} aria-label="Get uNepal on Google Play"><BrandIcon name="phone" /><span><small>Download for</small><strong>Android</strong></span></a>
-  </div>;
+  return <StoreBadges />;
 }
 
 function Logo() {
@@ -61,6 +59,7 @@ export default function LandingPage() {
       <section id="features" className={`${styles.section} ${styles.container}`} aria-labelledby="features-title">
         <div className={styles.sectionHeading}><div><span className={styles.eyebrow}>A place for your everyday</span><h2 id="features-title">So many ways<br />to feel connected.</h2></div><p>Share a little. Discover something new. Find the people and places that make your world feel closer.</p></div>
         <FeatureExplorer />
+        <div className={styles.midpointDownload}><div><h3>Make yourself at home.</h3><p>Your people and your everyday, in one app.</p></div><StoreBadges /></div>
       </section>
 
       <section id="experience" className={styles.communitySection} aria-labelledby="community-title">
@@ -94,5 +93,7 @@ export default function LandingPage() {
     </main>
 
     <footer className={styles.footer}><div className={styles.container}><div className={styles.footerTop}><div><Logo /><p>Rooted in Nepal.<br />Connected everywhere.</p></div><div><h3>Explore</h3><a href="#features">The app</a><a href="#bazaar">Bazaar</a><a href="#hamro-tv">Hamro TV</a><a href="#business">For businesses</a></div><div><h3>Here to help</h3><a href="#contact">Contact us</a><a href="mailto:hello@unepal.com">hello@unepal.com</a><Link href="/community">Community guidelines</Link><Link href="/child-safety-standards">Child safety standards</Link></div><div className={styles.footerMessage}><span lang="ne">जहाँ भए पनि,<br />हामी नेपाली।</span><p>Wherever we are, we belong.</p></div></div><div className={styles.footerBottom}><span>© {new Date().getFullYear()} uNepal. All rights reserved.</span><div><Link href="/privacy">Privacy policy</Link><Link href="/terms">Terms of service</Link><a href="#home">Back to top ↑</a></div></div></div></footer>
+    <p className={styles.storeCredits}>Apple, the Apple logo and iPhone are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC.</p>
+    <StickyStoreBar />
   </div>;
 }
